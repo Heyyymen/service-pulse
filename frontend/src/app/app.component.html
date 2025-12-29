@@ -1,0 +1,54 @@
+<!-- Navigation (affichée uniquement si authentifié) -->
+@if (authService.isAuthenticated()) {
+  <nav class="bg-slate-900 text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <!-- Logo et liens -->
+        <div class="flex items-center space-x-8">
+          <h1 class="text-2xl font-bold">{{ title }}</h1>
+          <div class="flex space-x-4">
+            <a 
+              routerLink="/dashboard" 
+              routerLinkActive="bg-slate-700"
+              class="px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors font-medium">
+              📊 Dashboard
+            </a>
+            @if (authService.hasRole('ROLE_ADMIN')) {
+              <a 
+                routerLink="/admin" 
+                routerLinkActive="bg-slate-700"
+                class="px-4 py-2 rounded-lg hover:bg-slate-700 transition-colors font-medium">
+                ⚙️ Admin
+              </a>
+            }
+          </div>
+        </div>
+
+        <!-- User info et logout -->
+        <div class="flex items-center space-x-4">
+          @if (authService.currentUser$ | async; as user) {
+            <div class="flex items-center space-x-3">
+              <div class="text-right">
+                <p class="text-sm font-medium">{{ user.fullName }}</p>
+                <p class="text-xs text-slate-400">
+                  {{ user.roles.includes('ROLE_ADMIN') ? '👑 Admin' : '👤 Lecteur' }}
+                </p>
+              </div>
+              <button 
+                (click)="logout()"
+                class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                🚪 Déconnexion
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </nav>
+}
+
+<!-- Main Content -->
+<main [class.p-6]="authService.isAuthenticated()">
+  <router-outlet></router-outlet>
+</main>
+

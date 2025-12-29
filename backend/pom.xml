@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!-- 
+        🎓 ANALOGIE JAVASCRIPT:
+        Ce fichier pom.xml est l'équivalent de package.json en Node.js
+        Il définit les métadonnées du projet et ses dépendances
+    -->
+    
+    <!-- Parent Spring Boot - fournit les configurations par défaut -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.1</version>
+        <relativePath/>
+    </parent>
+    
+    <!-- Métadonnées du projet (comme "name" et "version" dans package.json) -->
+    <groupId>com.servicepulse</groupId>
+    <artifactId>service-pulse-backend</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>Service Pulse Backend</name>
+    <description>API REST pour la gestion de maintenance applicative</description>
+    
+    <!-- Propriétés globales -->
+    <properties>
+        <java.version>17</java.version>
+        <jjwt.version>0.12.3</jjwt.version>
+    </properties>
+    
+    <!-- 
+        🎓 DÉPENDANCES (comme "dependencies" dans package.json)
+        Chaque <dependency> est l'équivalent d'un "npm install package"
+    -->
+    <dependencies>
+        
+        <!-- ═══════════════════════════════════════════════════════════
+             🌐 SPRING WEB - Pour créer des API REST
+             Analogie JS: npm install express
+             ═══════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
+        <!-- ═══════════════════════════════════════════════════════════
+             💾 SPRING DATA JPA - Pour interagir avec la base de données
+             Analogie JS: npm install sequelize
+             JPA = Java Persistence API (ORM comme Sequelize/Mongoose)
+             ═══════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        
+        <!-- ═══════════════════════════════════════════════════════════
+             🗄️ H2 DATABASE - Base de données en mémoire pour le dev
+             Analogie JS: npm install sqlite3
+             Pratique car pas besoin d'installer MySQL/PostgreSQL
+             ═══════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!-- ═══════════════════════════════════════════════════════════
+             🔒 SPRING SECURITY - Authentification et autorisation
+             Analogie JS: npm install passport passport-jwt
+             ═══════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
+        <!-- ═══════════════════════════════════════════════════════════
+             🎫 JJWT - Bibliothèque pour créer/valider les tokens JWT
+             Analogie JS: npm install jsonwebtoken
+             ═══════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!-- ═══════════════════════════════════════════════════════════
+             ✅ VALIDATION - Valider les données entrantes
+             Analogie JS: npm install joi express-validator
+             ═══════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        
+        <!-- ═══════════════════════════════════════════════════════════
+             📊 ACTUATOR - Monitoring et health checks
+             Analogie JS: npm install express-status-monitor
+             Expose des endpoints comme /actuator/health
+             ═══════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        
+        <!-- ═══════════════════════════════════════════════════════════
+             ✨ LOMBOK - Réduit le code répétitif (getters, setters, etc.)
+             Pas d'équivalent JS car JS n'a pas besoin de getters/setters
+             Génère automatiquement le code à la compilation
+             ═══════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        
+        <!-- ═══════════════════════════════════════════════════════════
+             🧪 TEST - Pour les tests unitaires
+             Analogie JS: npm install jest supertest
+             ═══════════════════════════════════════════════════════════ -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+    </dependencies>
+    
+    <!-- Configuration du build (comme "scripts" dans package.json) -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+</project>

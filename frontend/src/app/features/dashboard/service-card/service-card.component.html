@@ -1,0 +1,27 @@
+<div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-slate-100">
+  <div class="p-6">
+    <div class="flex justify-between items-start mb-4">
+      <h3 class="text-lg font-semibold text-slate-900 truncate" title="{{service.name}}">
+        {{ service.name }}
+      </h3>
+      <span [class]="'px-3 py-1 rounded-full text-xs font-medium border flex items-center gap-2 ' + getStatusColor(service.status)">
+        <span class="text-[10px]">{{ getStatusIcon(service.status) }}</span>
+        {{ service.status }}
+      </span>
+    </div>
+    
+    <p class="text-slate-600 text-sm mb-4 line-clamp-2" title="{{service.description}}">
+      {{ service.description }}
+    </p>
+
+    <!-- Maintenance Message if any -->
+    <div *ngIf="service.maintenanceMessage" class="mb-4 bg-slate-50 p-3 rounded text-xs text-slate-700 italic border-l-2 border-slate-300">
+        {{ service.maintenanceMessage }}
+    </div>
+
+    <div class="flex items-center justify-between text-xs text-slate-400 mt-4 pt-4 border-t border-slate-50">
+      <span>ID: #{{ service.id }}</span>
+      <span title="Last Updated">Updated: {{ service.lastUpdated | date:'medium' }}</span>
+    </div>
+  </div>
+</div>
