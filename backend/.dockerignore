@@ -1,0 +1,33 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🐳 .DOCKERIGNORE - Fichiers à exclure du contexte Docker
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Répertoires de build
+target/
+*.class
+
+# Fichiers IDE
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+docs/
+
+# Autres
+*.md
+!pom.xml

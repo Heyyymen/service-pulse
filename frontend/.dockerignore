@@ -1,0 +1,36 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🐳 .DOCKERIGNORE - Fichiers à exclure du contexte Docker
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# Dépendances (seront réinstallées dans le container)
+node_modules/
+
+# Build
+dist/
+.angular/
+
+# Fichiers IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Tests
+coverage/
+*.spec.ts
+
+# Autres
+*.md
+!package.json
+!package-lock.json

@@ -1,0 +1,52 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🏷️ Release - Create Tagged Release
+# ═══════════════════════════════════════════════════════════════════════════════
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📝 Generate Changelog
+        id: changelog
+        run: |
+          echo "## Changes in this Release" > CHANGELOG.md
+          git log --pretty=format:"- %s" $(git describe --tags --abbrev=0 HEAD^)..HEAD >> CHANGELOG.md
+
+      - name: 🏗️ Build Backend
+        run: |
+          cd backend
+          mvn clean package -DskipTests
+
+      - name: 🏗️ Build Frontend
+        run: |
+          cd frontend
+          npm ci
+          npm run build -- --configuration production
+
+      - name: 🐳 Build Docker Images
+        run: |
+          docker build -t service-pulse-backend:${{ github.ref_name }} ./backend
+          docker build -t service-pulse-frontend:${{ github.ref_name }} ./frontend
+
+      - name: 🎉 Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: CHANGELOG.md
+          files: |
+            backend/target/*.jar
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
