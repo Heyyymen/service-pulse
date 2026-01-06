@@ -50,7 +50,7 @@ jobs:
           mvn jacoco:report
 
       - name: 📦 Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: backend-jar
           path: backend/target/*.jar
@@ -95,7 +95,7 @@ jobs:
           npm run build -- --configuration production
 
       - name: 📦 Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: frontend-dist
           path: frontend/dist/
